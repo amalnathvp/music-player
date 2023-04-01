@@ -11,12 +11,12 @@
 <body>
     <div class="main_div">
         <div class="music_container">
-            <h2 id="title">Demo Music</h2>
-            <h3 id="artist">Demo Author</h3>
+            <h2 id="title">Right_Now</h2>
+            <h3 id="author">Akon</h3>
             <div class="img_container">
-                <img src="images/img3.jpg" alt="">
+                <img src="images/img1.jpg" alt="">
             </div>
-            <audio src="music/akon.mp3" ></audio>
+            <audio src="music/Right_Now.mp3" ></audio>
             
             <!-- controls -->
 
@@ -32,6 +32,28 @@
         const music = document.querySelector("audio");
         const img = document.querySelector("img");
         const play = document.getElementById("play");
+        const title = document.getElementById("title");
+        const author = document.getElementById("author");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+
+        const songs = [
+            {
+                name: "img1",
+                title: "Right_Now",
+                author: "Akon"
+            },
+            {
+                name: "img2",
+                title: "Closer",
+                author: "The Chainsmoker"
+            },
+            {
+                name: "img3",
+                title: "Flares",
+                author: "Alan Walker"
+            }
+        ]
 
         let isPlaying = false;
 
@@ -58,6 +80,33 @@
                 playMusic();
             }
         })
+
+        // change the music
+        const loadSong = (songs) => {
+            title.textContent = songs.title;
+            author.textContent = songs.author;
+            music.src = "music/" + songs.title + ".mp3";
+            img.src = "images/" + songs.name + ".jpg";
+        }
+
+        // loadSong(songs[2]);
+        songIndex = 0;
+
+        const nextSong = () =>{
+            songIndex = (songIndex + 1) % songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        }
+        const prevSong = () =>{
+            songIndex = (songIndex - 1 + songs.length) % songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        }
+
+        next.addEventListener("click", nextSong);
+        prev.addEventListener("click", prevSong);
+
+    
     </script>
     
 </body>
